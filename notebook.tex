@@ -1,0 +1,666 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{crypto analysis}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{os}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{pickle}
+        \PY{k+kn}{import} \PY{n+nn}{quandl}
+        \PY{k+kn}{from} \PY{n+nn}{datetime} \PY{k}{import} \PY{n}{datetime}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{k+kn}{import} \PY{n+nn}{plotly}\PY{n+nn}{.}\PY{n+nn}{offline} \PY{k}{as} \PY{n+nn}{py}
+        \PY{k+kn}{import} \PY{n+nn}{plotly}\PY{n+nn}{.}\PY{n+nn}{graph\PYZus{}objs} \PY{k}{as} \PY{n+nn}{go}
+        \PY{k+kn}{import} \PY{n+nn}{plotly}\PY{n+nn}{.}\PY{n+nn}{figure\PYZus{}factory} \PY{k}{as} \PY{n+nn}{ff}
+        \PY{n}{py}\PY{o}{.}\PY{n}{init\PYZus{}notebook\PYZus{}mode}\PY{p}{(}\PY{n}{connected}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{k}{def} \PY{n+nf}{get\PYZus{}quandl\PYZus{}data}\PY{p}{(}\PY{n}{quandl\PYZus{}id}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}Download and cache Quandl dataseries\PYZsq{}\PYZsq{}\PYZsq{}}
+            \PY{n}{cache\PYZus{}path} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{.pkl}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{quandl\PYZus{}id}\PY{p}{)}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{/}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{k}{try}\PY{p}{:}
+                \PY{n}{f} \PY{o}{=} \PY{n+nb}{open}\PY{p}{(}\PY{n}{cache\PYZus{}path}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                \PY{n}{df} \PY{o}{=} \PY{n}{pickle}\PY{o}{.}\PY{n}{load}\PY{p}{(}\PY{n}{f}\PY{p}{)}   
+                \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Loaded }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{ from cache}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{quandl\PYZus{}id}\PY{p}{)}\PY{p}{)}
+            \PY{k}{except} \PY{p}{(}\PY{n+ne}{OSError}\PY{p}{,} \PY{n+ne}{IOError}\PY{p}{)} \PY{k}{as} \PY{n}{e}\PY{p}{:}
+                \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Downloading }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{ from Quandl}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{quandl\PYZus{}id}\PY{p}{)}\PY{p}{)}
+                \PY{n}{df} \PY{o}{=} \PY{n}{quandl}\PY{o}{.}\PY{n}{get}\PY{p}{(}\PY{n}{quandl\PYZus{}id}\PY{p}{,} \PY{n}{returns}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{pandas}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                \PY{n}{df}\PY{o}{.}\PY{n}{to\PYZus{}pickle}\PY{p}{(}\PY{n}{cache\PYZus{}path}\PY{p}{)}
+                \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Cached }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{ at }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{quandl\PYZus{}id}\PY{p}{,} \PY{n}{cache\PYZus{}path}\PY{p}{)}\PY{p}{)}
+            \PY{k}{return} \PY{n}{df}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{c+c1}{\PYZsh{} Pull bitstamp BTC price exchange data}
+        \PY{n}{btc\PYZus{}usd\PYZus{}price\PYZus{}bitstamp} \PY{o}{=} \PY{n}{get\PYZus{}quandl\PYZus{}data}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BCHARTS/BITSTAMPUSD}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Loaded BCHARTS/BITSTAMPUSD from cache
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{btc\PYZus{}usd\PYZus{}price\PYZus{}bitstamp}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}5}]:}             Open  High   Low  Close  Volume (BTC)  Volume (Currency)  \textbackslash{}
+        Date                                                                   
+        2011-09-13  5.80  6.00  5.65   5.97     58.371382         346.097389   
+        2011-09-14  5.58  5.72  5.52   5.53     61.145984         341.854813   
+        2011-09-15  5.12  5.24  5.00   5.13     80.140795         408.259002   
+        2011-09-16  4.82  4.87  4.80   4.85     39.914007         193.763147   
+        2011-09-17  4.87  4.87  4.87   4.87      0.300000           1.461000   
+        
+                    Weighted Price  
+        Date                        
+        2011-09-13        5.929231  
+        2011-09-14        5.590798  
+        2011-09-15        5.094272  
+        2011-09-16        4.854515  
+        2011-09-17        4.870000  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{c+c1}{\PYZsh{} Chart the BTC pricing data}
+        \PY{n}{btc\PYZus{}trace} \PY{o}{=} \PY{n}{go}\PY{o}{.}\PY{n}{Scatter}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{n}{btc\PYZus{}usd\PYZus{}price\PYZus{}bitstamp}\PY{o}{.}\PY{n}{index}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{n}{btc\PYZus{}usd\PYZus{}price\PYZus{}bitstamp}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Weighted Price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+        \PY{n}{py}\PY{o}{.}\PY{n}{iplot}\PY{p}{(}\PY{p}{[}\PY{n}{btc\PYZus{}trace}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{c+c1}{\PYZsh{} Pull pricing data for 1 more BTC exchanges}
+        \PY{n}{exchanges} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{COINBASE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        
+        \PY{n}{exchange\PYZus{}data} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+        
+        \PY{n}{exchange\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BITSTAMP}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{btc\PYZus{}usd\PYZus{}price\PYZus{}bitstamp}
+        
+        \PY{k}{for} \PY{n}{exchange} \PY{o+ow}{in} \PY{n}{exchanges}\PY{p}{:}
+            \PY{n}{exchange\PYZus{}code} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BCHARTS/}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{USD}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{exchange}\PY{p}{)}
+            \PY{n}{btc\PYZus{}exchange\PYZus{}df} \PY{o}{=} \PY{n}{get\PYZus{}quandl\PYZus{}data}\PY{p}{(}\PY{n}{exchange\PYZus{}code}\PY{p}{)}
+            \PY{n}{exchange\PYZus{}data}\PY{p}{[}\PY{n}{exchange}\PY{p}{]} \PY{o}{=} \PY{n}{btc\PYZus{}exchange\PYZus{}df}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Loaded BCHARTS/COINBASEUSD from cache
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{c+c1}{\PYZsh{} Merge All Of The Pricing Data Into A Single Dataframe}
+        \PY{k}{def} \PY{n+nf}{merge\PYZus{}dfs\PYZus{}on\PYZus{}column}\PY{p}{(}\PY{n}{dataframes}\PY{p}{,} \PY{n}{labels}\PY{p}{,} \PY{n}{col}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}Merge a single column of each dataframe into a new combined dataframe\PYZsq{}\PYZsq{}\PYZsq{}}
+            \PY{n}{series\PYZus{}dict} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+            \PY{k}{for} \PY{n}{index} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{dataframes}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                \PY{n}{series\PYZus{}dict}\PY{p}{[}\PY{n}{labels}\PY{p}{[}\PY{n}{index}\PY{p}{]}\PY{p}{]} \PY{o}{=} \PY{n}{dataframes}\PY{p}{[}\PY{n}{index}\PY{p}{]}\PY{p}{[}\PY{n}{col}\PY{p}{]}
+                
+            \PY{k}{return} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{series\PYZus{}dict}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Merge the BTC price dataseries\PYZsq{} into a single dataframe}
+        \PY{n}{btc\PYZus{}usd\PYZus{}datasets} \PY{o}{=} \PY{n}{merge\PYZus{}dfs\PYZus{}on\PYZus{}column}\PY{p}{(}\PY{n+nb}{list}\PY{p}{(}\PY{n}{exchange\PYZus{}data}\PY{o}{.}\PY{n}{values}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n+nb}{list}\PY{p}{(}\PY{n}{exchange\PYZus{}data}\PY{o}{.}\PY{n}{keys}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Weighted Price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{btc\PYZus{}usd\PYZus{}datasets}\PY{o}{.}\PY{n}{tail}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}9}]:}                BITSTAMP     COINBASE
+        Date                                
+        2018-06-15  6545.672008  6535.241459
+        2018-06-16  6460.211171  6455.774489
+        2018-06-17  6509.017847  6498.813185
+        2018-06-18  6551.333545  6586.614178
+        2018-06-19  6731.632282  6728.605931
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{c+c1}{\PYZsh{} Visualize The Pricing Datasets}
+         \PY{k}{def} \PY{n+nf}{df\PYZus{}scatter}\PY{p}{(}\PY{n}{df}\PY{p}{,} \PY{n}{title}\PY{p}{,} \PY{n}{seperate\PYZus{}y\PYZus{}axis}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{y\PYZus{}axis\PYZus{}label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{scale}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{linear}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{initial\PYZus{}hide}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}Generate a scatter plot of the entire dataframe\PYZsq{}\PYZsq{}\PYZsq{}}
+             \PY{n}{label\PYZus{}arr} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{df}\PY{p}{)}
+             \PY{n}{series\PYZus{}arr} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{map}\PY{p}{(}\PY{k}{lambda} \PY{n}{col}\PY{p}{:} \PY{n}{df}\PY{p}{[}\PY{n}{col}\PY{p}{]}\PY{p}{,} \PY{n}{label\PYZus{}arr}\PY{p}{)}\PY{p}{)}
+             
+             \PY{n}{layout} \PY{o}{=} \PY{n}{go}\PY{o}{.}\PY{n}{Layout}\PY{p}{(}
+                 \PY{n}{title}\PY{o}{=}\PY{n}{title}\PY{p}{,}
+                 \PY{n}{legend}\PY{o}{=}\PY{n+nb}{dict}\PY{p}{(}\PY{n}{orientation}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{h}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,}
+                 \PY{n}{xaxis}\PY{o}{=}\PY{n+nb}{dict}\PY{p}{(}\PY{n+nb}{type}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,}
+                 \PY{n}{yaxis}\PY{o}{=}\PY{n+nb}{dict}\PY{p}{(}
+                     \PY{n}{title}\PY{o}{=}\PY{n}{y\PYZus{}axis\PYZus{}label}\PY{p}{,}
+                     \PY{n}{showticklabels}\PY{o}{=} \PY{o+ow}{not} \PY{n}{seperate\PYZus{}y\PYZus{}axis}\PY{p}{,}
+                     \PY{n+nb}{type}\PY{o}{=}\PY{n}{scale}
+                 \PY{p}{)}
+             \PY{p}{)}
+             
+             \PY{n}{y\PYZus{}axis\PYZus{}config} \PY{o}{=} \PY{n+nb}{dict}\PY{p}{(}
+                 \PY{n}{overlaying}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                 \PY{n}{showticklabels}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,}
+                 \PY{n+nb}{type}\PY{o}{=}\PY{n}{scale} \PY{p}{)}
+             
+             \PY{n}{visibility} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{visible}\PY{l+s+s1}{\PYZsq{}}
+             \PY{k}{if} \PY{n}{initial\PYZus{}hide}\PY{p}{:}
+                 \PY{n}{visibility} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{legendonly}\PY{l+s+s1}{\PYZsq{}}
+                 
+             \PY{c+c1}{\PYZsh{} Form Trace For Each Series}
+             \PY{n}{trace\PYZus{}arr} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{k}{for} \PY{n}{index}\PY{p}{,} \PY{n}{series} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{series\PYZus{}arr}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{trace} \PY{o}{=} \PY{n}{go}\PY{o}{.}\PY{n}{Scatter}\PY{p}{(}
+                     \PY{n}{x}\PY{o}{=}\PY{n}{series}\PY{o}{.}\PY{n}{index}\PY{p}{,} 
+                     \PY{n}{y}\PY{o}{=}\PY{n}{series}\PY{p}{,} 
+                     \PY{n}{name}\PY{o}{=}\PY{n}{label\PYZus{}arr}\PY{p}{[}\PY{n}{index}\PY{p}{]}\PY{p}{,}
+                     \PY{n}{visible}\PY{o}{=}\PY{n}{visibility}
+                 \PY{p}{)}
+                 
+                 \PY{c+c1}{\PYZsh{} Add seperate axis for the series}
+                 \PY{k}{if} \PY{n}{seperate\PYZus{}y\PYZus{}axis}\PY{p}{:}
+                     \PY{n}{trace}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{yaxis}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{index} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)}
+                     \PY{n}{layout}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{yaxis}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{index} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]} \PY{o}{=} \PY{n}{y\PYZus{}axis\PYZus{}config}    
+                 \PY{n}{trace\PYZus{}arr}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{trace}\PY{p}{)}
+         
+             \PY{n}{fig} \PY{o}{=} \PY{n}{go}\PY{o}{.}\PY{n}{Figure}\PY{p}{(}\PY{n}{data}\PY{o}{=}\PY{n}{trace\PYZus{}arr}\PY{p}{,} \PY{n}{layout}\PY{o}{=}\PY{n}{layout}\PY{p}{)}
+             \PY{n}{py}\PY{o}{.}\PY{n}{iplot}\PY{p}{(}\PY{n}{fig}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{c+c1}{\PYZsh{} Plot all of the BTC exchange prices}
+         \PY{n}{df\PYZus{}scatter}\PY{p}{(}\PY{n}{btc\PYZus{}usd\PYZus{}datasets}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Bitcoin Price (USD) By Exchange}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{c+c1}{\PYZsh{} Remove \PYZdq{}0\PYZdq{} values}
+         \PY{n}{btc\PYZus{}usd\PYZus{}datasets}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{nan}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} Plot the revised dataframe}
+         \PY{n}{df\PYZus{}scatter}\PY{p}{(}\PY{n}{btc\PYZus{}usd\PYZus{}datasets}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Bitcoin Price (USD) By Exchange}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{c+c1}{\PYZsh{} Calculate the average BTC price as a new column}
+         \PY{n}{btc\PYZus{}usd\PYZus{}datasets}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{avg\PYZus{}btc\PYZus{}price\PYZus{}usd}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{btc\PYZus{}usd\PYZus{}datasets}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} Plot the average BTC price}
+         \PY{n}{btc\PYZus{}trace} \PY{o}{=} \PY{n}{go}\PY{o}{.}\PY{n}{Scatter}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{n}{btc\PYZus{}usd\PYZus{}datasets}\PY{o}{.}\PY{n}{index}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{n}{btc\PYZus{}usd\PYZus{}datasets}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{avg\PYZus{}btc\PYZus{}price\PYZus{}usd}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{py}\PY{o}{.}\PY{n}{iplot}\PY{p}{(}\PY{p}{[}\PY{n}{btc\PYZus{}trace}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{k}{def} \PY{n+nf}{get\PYZus{}json\PYZus{}data}\PY{p}{(}\PY{n}{json\PYZus{}url}\PY{p}{,} \PY{n}{cache\PYZus{}path}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}Download and cache JSON data, return as a dataframe.\PYZsq{}\PYZsq{}\PYZsq{}}
+             \PY{k}{try}\PY{p}{:}        
+                 \PY{n}{f} \PY{o}{=} \PY{n+nb}{open}\PY{p}{(}\PY{n}{cache\PYZus{}path}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                 \PY{n}{df} \PY{o}{=} \PY{n}{pickle}\PY{o}{.}\PY{n}{load}\PY{p}{(}\PY{n}{f}\PY{p}{)}   
+                 \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Loaded }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{ from cache}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{json\PYZus{}url}\PY{p}{)}\PY{p}{)}
+             \PY{k}{except} \PY{p}{(}\PY{n+ne}{OSError}\PY{p}{,} \PY{n+ne}{IOError}\PY{p}{)} \PY{k}{as} \PY{n}{e}\PY{p}{:}
+                 \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Downloading }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{json\PYZus{}url}\PY{p}{)}\PY{p}{)}
+                 \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}json}\PY{p}{(}\PY{n}{json\PYZus{}url}\PY{p}{)}
+                 \PY{n}{df}\PY{o}{.}\PY{n}{to\PYZus{}pickle}\PY{p}{(}\PY{n}{cache\PYZus{}path}\PY{p}{)}
+                 \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Cached }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{ at }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{json\PYZus{}url}\PY{p}{,} \PY{n}{cache\PYZus{}path}\PY{p}{)}\PY{p}{)}
+             \PY{k}{return} \PY{n}{df}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n}{base\PYZus{}polo\PYZus{}url} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{https://poloniex.com/public?command=returnChartData\PYZam{}currencyPair=}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZam{}start=}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZam{}end=}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZam{}period=}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}
+         \PY{n}{start\PYZus{}date} \PY{o}{=} \PY{n}{datetime}\PY{o}{.}\PY{n}{strptime}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2015\PYZhy{}01\PYZhy{}01}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{Y\PYZhy{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{m\PYZhy{}}\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{c+c1}{\PYZsh{} get data from the start of 2015}
+         \PY{n}{end\PYZus{}date} \PY{o}{=} \PY{n}{datetime}\PY{o}{.}\PY{n}{now}\PY{p}{(}\PY{p}{)} \PY{c+c1}{\PYZsh{} up until today}
+         \PY{n}{pediod} \PY{o}{=} \PY{l+m+mi}{86400} \PY{c+c1}{\PYZsh{} pull daily data (86,400 seconds per day)}
+         
+         \PY{k}{def} \PY{n+nf}{get\PYZus{}crypto\PYZus{}data}\PY{p}{(}\PY{n}{poloniex\PYZus{}pair}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}Retrieve cryptocurrency data from poloniex\PYZsq{}\PYZsq{}\PYZsq{}}
+             \PY{n}{json\PYZus{}url} \PY{o}{=} \PY{n}{base\PYZus{}polo\PYZus{}url}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{poloniex\PYZus{}pair}\PY{p}{,} \PY{n}{start\PYZus{}date}\PY{o}{.}\PY{n}{timestamp}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{end\PYZus{}date}\PY{o}{.}\PY{n}{timestamp}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{pediod}\PY{p}{)}
+             \PY{n}{data\PYZus{}df} \PY{o}{=} \PY{n}{get\PYZus{}json\PYZus{}data}\PY{p}{(}\PY{n}{json\PYZus{}url}\PY{p}{,} \PY{n}{poloniex\PYZus{}pair}\PY{p}{)}
+             \PY{n}{data\PYZus{}df} \PY{o}{=} \PY{n}{data\PYZus{}df}\PY{o}{.}\PY{n}{set\PYZus{}index}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{k}{return} \PY{n}{data\PYZus{}df}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{n}{altcoins} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ETH}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ETC}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{XMR}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{DCR}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BURST}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SC}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BCN}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ZEC}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         
+         \PY{n}{altcoin\PYZus{}data} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+         \PY{k}{for} \PY{n}{altcoin} \PY{o+ow}{in} \PY{n}{altcoins}\PY{p}{:}
+             \PY{n}{coinpair} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BTC\PYZus{}}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{altcoin}\PY{p}{)}
+             \PY{n}{crypto\PYZus{}price\PYZus{}df} \PY{o}{=} \PY{n}{get\PYZus{}crypto\PYZus{}data}\PY{p}{(}\PY{n}{coinpair}\PY{p}{)}
+             \PY{n}{altcoin\PYZus{}data}\PY{p}{[}\PY{n}{altcoin}\PY{p}{]} \PY{o}{=} \PY{n}{crypto\PYZus{}price\PYZus{}df}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Loaded https://poloniex.com/public?command=returnChartData\&currencyPair=BTC\_ETH\&start=1420041600.0\&end=1529580337.660345\&period=86400 from cache
+Loaded https://poloniex.com/public?command=returnChartData\&currencyPair=BTC\_ETC\&start=1420041600.0\&end=1529580337.660345\&period=86400 from cache
+Loaded https://poloniex.com/public?command=returnChartData\&currencyPair=BTC\_XMR\&start=1420041600.0\&end=1529580337.660345\&period=86400 from cache
+Loaded https://poloniex.com/public?command=returnChartData\&currencyPair=BTC\_DCR\&start=1420041600.0\&end=1529580337.660345\&period=86400 from cache
+Loaded https://poloniex.com/public?command=returnChartData\&currencyPair=BTC\_BURST\&start=1420041600.0\&end=1529580337.660345\&period=86400 from cache
+Loaded https://poloniex.com/public?command=returnChartData\&currencyPair=BTC\_SC\&start=1420041600.0\&end=1529580337.660345\&period=86400 from cache
+Loaded https://poloniex.com/public?command=returnChartData\&currencyPair=BTC\_BCN\&start=1420041600.0\&end=1529580337.660345\&period=86400 from cache
+Loaded https://poloniex.com/public?command=returnChartData\&currencyPair=BTC\_ZEC\&start=1420041600.0\&end=1529580337.660345\&period=86400 from cache
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{n}{altcoin\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ETH}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{tail}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}17}]:}                close      high       low      open  quoteVolume      volume  \textbackslash{}
+         date                                                                          
+         2018-06-16  0.076550  0.077454  0.075934  0.076288  5206.688936  399.521964   
+         2018-06-17  0.077045  0.077560  0.076490  0.076550  6411.514230  493.196666   
+         2018-06-18  0.077141  0.077606  0.076270  0.077050  7174.540153  551.517968   
+         2018-06-19  0.079783  0.080102  0.076925  0.077194  9000.489109  710.320480   
+         2018-06-20  0.079235  0.079833  0.078420  0.079783  6037.890485  478.485335   
+         
+                     weightedAverage  
+         date                         
+         2018-06-16         0.076732  
+         2018-06-17         0.076924  
+         2018-06-18         0.076872  
+         2018-06-19         0.078920  
+         2018-06-20         0.079247  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{c+c1}{\PYZsh{} Calculate USD Price as a new column in each altcoin dataframe}
+         \PY{k}{for} \PY{n}{altcoin} \PY{o+ow}{in} \PY{n}{altcoin\PYZus{}data}\PY{o}{.}\PY{n}{keys}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+             \PY{n}{altcoin\PYZus{}data}\PY{p}{[}\PY{n}{altcoin}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{price\PYZus{}usd}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=}  \PY{n}{altcoin\PYZus{}data}\PY{p}{[}\PY{n}{altcoin}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{weightedAverage}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{*} \PY{n}{btc\PYZus{}usd\PYZus{}datasets}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{avg\PYZus{}btc\PYZus{}price\PYZus{}usd}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{c+c1}{\PYZsh{} Merge USD price of each altcoin into single dataframe }
+         \PY{n}{combined\PYZus{}df} \PY{o}{=} \PY{n}{merge\PYZus{}dfs\PYZus{}on\PYZus{}column}\PY{p}{(}\PY{n+nb}{list}\PY{p}{(}\PY{n}{altcoin\PYZus{}data}\PY{o}{.}\PY{n}{values}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n+nb}{list}\PY{p}{(}\PY{n}{altcoin\PYZus{}data}\PY{o}{.}\PY{n}{keys}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{price\PYZus{}usd}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{c+c1}{\PYZsh{} Add BTC price to the dataframe}
+         \PY{n}{combined\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BTC}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{btc\PYZus{}usd\PYZus{}datasets}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{avg\PYZus{}btc\PYZus{}price\PYZus{}usd}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{c+c1}{\PYZsh{} Chart all of the altocoin prices}
+         \PY{n}{df\PYZus{}scatter}\PY{p}{(}\PY{n}{combined\PYZus{}df}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Cryptocurrency Prices (USD)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{seperate\PYZus{}y\PYZus{}axis}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{y\PYZus{}axis\PYZus{}label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Coin Value (USD)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{scale}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{log}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{c+c1}{\PYZsh{} Calculate the pearson correlation coefficients for cryptocurrencies in 2018}
+         \PY{n}{combined\PYZus{}df\PYZus{}2016} \PY{o}{=} \PY{n}{combined\PYZus{}df}\PY{p}{[}\PY{n}{combined\PYZus{}df}\PY{o}{.}\PY{n}{index}\PY{o}{.}\PY{n}{year} \PY{o}{==} \PY{l+m+mi}{2018}\PY{p}{]}
+         \PY{n}{combined\PYZus{}df\PYZus{}2016}\PY{o}{.}\PY{n}{pct\PYZus{}change}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{corr}\PY{p}{(}\PY{n}{method}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pearson}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}22}]:}             ETH       ETC       XMR       DCR     BURST        SC       BCN  \textbackslash{}
+         ETH    1.000000  0.786395  0.809302  0.669311  0.749260  0.663596  0.509829   
+         ETC    0.786395  1.000000  0.691035  0.530652  0.648089  0.577277  0.385968   
+         XMR    0.809302  0.691035  1.000000  0.667190  0.752363  0.662433  0.454892   
+         DCR    0.669311  0.530652  0.667190  1.000000  0.612424  0.548875  0.427635   
+         BURST  0.749260  0.648089  0.752363  0.612424  1.000000  0.793967  0.581313   
+         SC     0.663596  0.577277  0.662433  0.548875  0.793967  1.000000  0.616380   
+         BCN    0.509829  0.385968  0.454892  0.427635  0.581313  0.616380  1.000000   
+         ZEC    0.758099  0.679409  0.775663  0.554905  0.681780  0.637236  0.489320   
+         BTC    0.821023  0.721851  0.865273  0.740620  0.816616  0.738833  0.578288   
+         
+                     ZEC       BTC  
+         ETH    0.758099  0.821023  
+         ETC    0.679409  0.721851  
+         XMR    0.775663  0.865273  
+         DCR    0.554905  0.740620  
+         BURST  0.681780  0.816616  
+         SC     0.637236  0.738833  
+         BCN    0.489320  0.578288  
+         ZEC    1.000000  0.739070  
+         BTC    0.739070  1.000000  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{k}{def} \PY{n+nf}{correlation\PYZus{}heatmap}\PY{p}{(}\PY{n}{df}\PY{p}{,} \PY{n}{title}\PY{p}{,} \PY{n}{absolute\PYZus{}bounds}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}Plot a correlation heatmap for the entire dataframe\PYZsq{}\PYZsq{}\PYZsq{}}
+             \PY{n}{heatmap} \PY{o}{=} \PY{n}{go}\PY{o}{.}\PY{n}{Heatmap}\PY{p}{(}
+                 \PY{n}{z}\PY{o}{=}\PY{n}{df}\PY{o}{.}\PY{n}{corr}\PY{p}{(}\PY{n}{method}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pearson}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{as\PYZus{}matrix}\PY{p}{(}\PY{p}{)}\PY{p}{,}
+                 \PY{n}{x}\PY{o}{=}\PY{n}{df}\PY{o}{.}\PY{n}{columns}\PY{p}{,}
+                 \PY{n}{y}\PY{o}{=}\PY{n}{df}\PY{o}{.}\PY{n}{columns}\PY{p}{,}
+                 \PY{n}{colorbar}\PY{o}{=}\PY{n+nb}{dict}\PY{p}{(}\PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Pearson Coefficient}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,}
+             \PY{p}{)}
+             
+             \PY{n}{layout} \PY{o}{=} \PY{n}{go}\PY{o}{.}\PY{n}{Layout}\PY{p}{(}\PY{n}{title}\PY{o}{=}\PY{n}{title}\PY{p}{)}
+             
+             \PY{k}{if} \PY{n}{absolute\PYZus{}bounds}\PY{p}{:}
+                 \PY{n}{heatmap}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{zmax}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mf}{1.0}
+                 \PY{n}{heatmap}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{zmin}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mf}{1.0}
+                 
+             \PY{n}{fig} \PY{o}{=} \PY{n}{go}\PY{o}{.}\PY{n}{Figure}\PY{p}{(}\PY{n}{data}\PY{o}{=}\PY{p}{[}\PY{n}{heatmap}\PY{p}{]}\PY{p}{,} \PY{n}{layout}\PY{o}{=}\PY{n}{layout}\PY{p}{)}
+             \PY{n}{py}\PY{o}{.}\PY{n}{iplot}\PY{p}{(}\PY{n}{fig}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{n}{correlation\PYZus{}heatmap}\PY{p}{(}\PY{n}{combined\PYZus{}df\PYZus{}2016}\PY{o}{.}\PY{n}{pct\PYZus{}change}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Cryptocurrency Correlations in 2018}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+C:\textbackslash{}Users\textbackslash{}bebik\textbackslash{}Anaconda3\textbackslash{}envs\textbackslash{}crypto-analysis\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}ipykernel\textbackslash{}\_\_main\_\_.py:4: FutureWarning:
+
+Method .as\_matrix will be removed in a future version. Use .values instead.
+
+
+    \end{Verbatim}
+
+    
+    
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}

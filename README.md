@@ -1,4 +1,4 @@
 # Burstcoin-Predictive-Analysis
 Burstcoin &amp; Cryptos Predictive Analysis
-# t.me/burst_HK
+# t.me/burstcoin_HK
 </Under construction>
